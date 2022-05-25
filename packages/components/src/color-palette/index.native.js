@@ -70,6 +70,24 @@ function ColorPalette( {
 	);
 	const colors = isGradientSegment ? defaultGradientColors : defaultColors;
 
+	const isSelectedCustom = useCallback( () => {
+		const isWithinColors =
+			activeColor && mergedColors && mergedColors.includes( activeColor );
+		if ( enableCustomColor && activeColor ) {
+			if ( isGradientSegment ) {
+				return isGradientColor && ! isWithinColors;
+			}
+			return ! isGradientColor && ! isWithinColors;
+		}
+		return false;
+	}, [
+		activeColor,
+		mergedColors,
+		enableCustomColor,
+		isGradientColor,
+		isGradientSegment,
+	] );
+
 	const customIndicatorColor = isGradientSegment
 		? activeColor
 		: customSwatchGradients;
@@ -93,24 +111,6 @@ function ColorPalette( {
 			}
 		}
 	}, [ currentSegment, isSelectedCustom ] );
-
-	const isSelectedCustom = useCallback( () => {
-		const isWithinColors =
-			activeColor && mergedColors && mergedColors.includes( activeColor );
-		if ( enableCustomColor && activeColor ) {
-			if ( isGradientSegment ) {
-				return isGradientColor && ! isWithinColors;
-			}
-			return ! isGradientColor && ! isWithinColors;
-		}
-		return false;
-	}, [
-		activeColor,
-		mergedColors,
-		enableCustomColor,
-		isGradientColor,
-		isGradientSegment,
-	] );
 
 	function isSelected( color ) {
 		return ! isSelectedCustom() && activeColor === color;
