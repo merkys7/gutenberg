@@ -48,10 +48,10 @@ function SuggestionListItem( {
 			{ ...composite }
 			className="edit-site-custom-template-modal__suggestions_list__list-item"
 			onClick={ () => {
-				const title = `Template for: ${ suggestion.name } - ${ entityForSuggestions.labels.singular }`;
+				const title = `${ entityForSuggestions.labels.singular }: ${ suggestion.name }`;
 				onSelect( {
 					title,
-					description: title,
+					description: `Template for ${ title }`,
 					slug: `single-${ entityForSuggestions.slug }-${ suggestion.slug }`,
 				} );
 			} }
